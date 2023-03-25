@@ -26,6 +26,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.example.rpolab.databinding.ActivityMainBinding;
 
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements TransactionEvents
         new Thread(() -> {
             try {
                 HttpURLConnection uc = (HttpURLConnection)
-                        (new URL("http://195.19.42.163:8081/api/v1/title").openConnection());
+                        (new URL("http://10.0.2.2:8081/api/v1/title").openConnection());
                 InputStream inputStream = uc.getInputStream();
                 String html = IOUtils.toString(inputStream);
                 String title = getPageTitle(html);
@@ -140,17 +142,28 @@ public class MainActivity extends AppCompatActivity implements TransactionEvents
         }).start();
     }
 
+//    protected String getPageTitle(String html) {
+//        int pos = html.indexOf("<title");
+//        String p="not found";
+//        if (pos >= 0) {
+//            int pos2 = html.indexOf("<", pos + 1);
+//            if (pos >= 0)
+//                p = html.substring(pos + 7, pos2);
+//        }
+//        return p;
+//    }
+
     protected String getPageTitle(String html) {
-        int pos = html.indexOf("<title");
-        String p="not found";
-        if (pos >= 0)
-        {
-            int pos2 = html.indexOf("<", pos + 1);
-            if (pos >= 0)
-                p = html.substring(pos + 7, pos2);
-        }
+        Pattern pattern = Pattern.compile("<title>(.+)</title>", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(html);
+        String p;
+        if (matcher.find())
+            p = matcher.group(1);
+        else
+            p = "Not found";
         return p;
     }
+
 
     /**
      * A native method that is implemented by the 'rpolab' native library,
