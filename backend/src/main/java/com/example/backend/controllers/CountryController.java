@@ -4,12 +4,12 @@ import com.example.backend.models.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.models.Country;
 import com.example.backend.repositories.CountryRepository;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -51,7 +51,7 @@ public class CountryController {
 
     @PutMapping("/countries/{id}")
     public ResponseEntity<Country> updateCountry(@PathVariable(value = "id") Long countryId,
-                        @Validated @RequestBody Country countryDetails) {
+                        @Valid @RequestBody Country countryDetails) {
         Country country = null;
         Optional<Country>
                 cc = countryRepository.findById(countryId);
