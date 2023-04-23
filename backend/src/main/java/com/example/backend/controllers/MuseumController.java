@@ -27,9 +27,7 @@ public class MuseumController {
         try {
             Museum nc = museumRepository.save(museum);
             return ResponseEntity.ok(nc);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             String error;
             if (ex.getMessage().contains("museums.name_UNIQUE"))
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Данный музей уже есть в базе");

@@ -49,5 +49,5 @@ public class User {
     public LocalDateTime activity;
 
     @ManyToMany(mappedBy = "users")
-    public Set<Museum> museums = new HashSet<>();
+    public Set<Museum> museums = new HashSet<Museum>();
 }
