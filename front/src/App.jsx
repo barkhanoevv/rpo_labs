@@ -10,6 +10,7 @@ import CountryListComponent from "./components/CountryListComponent";
 import CountryComponent from "./components/CountryComponent";
 import Utils from "./utils/Utils";
 import {useState} from "react";
+import MyAccountComponent from "./components/MyAccountComponent";
 
 const ProtectedRoute = ({children}) => {
     let user = Utils.getUser();
@@ -34,6 +35,7 @@ function App(props) {
                       <Route path="home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
                       <Route path="countries" element={<ProtectedRoute><CountryListComponent/></ProtectedRoute>}/>
                       <Route path="countries/:id" element={<ProtectedRoute><CountryComponent /></ProtectedRoute>}/>
+                      <Route path="account" element={<ProtectedRoute><MyAccountComponent /></ProtectedRoute>} />
                   </Routes>
               </div>
           </div>
